@@ -1,17 +1,16 @@
-name: Node.js CICD
+name: Node.js CICD  
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
 
 jobs:
-  build:
+  compile:
+    runs-on: Agent-1
 
-    runs-on: Agent-2
-
-   steps:
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -29,10 +28,11 @@ jobs:
         run: |
           cd api
           find . -name "*.js" -exec node --check {} +
-    gitleaks-scan:
-    runs-on: Agent-2
+
+  gitleaks-scan:
+    runs-on: Agent-1
     needs: compile
-    steps: 
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -43,6 +43,7 @@ jobs:
         run: |
           gitleaks detect --source ./client --exit-code 1
           gitleaks detect --source ./api --exit-code 1
+
 
     steps:
     - uses: actions/checkout@v4
