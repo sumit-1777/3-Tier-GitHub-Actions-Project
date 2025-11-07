@@ -158,7 +158,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: image               # 👈 scan container image
-          image-ref: adijaiswal/backend:latest
+          image-ref: sumit1777/backend:latest
           format: table
           exit-code: '0'                 
           ignore-unfixed: true
@@ -169,7 +169,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: image               # 👈 scan container image
-          image-ref: adijaiswal/frontend:latest
+          image-ref: sumit1777/frontend:latest
           format: table
           exit-code: '0'              
           ignore-unfixed: true
@@ -177,7 +177,7 @@ jobs:
           severity: CRITICAL,HIGH
 
   deploy_to_kubernetes:
-    runs-on: Agent-1
+    runs-on: Agent-2
     needs: trivy_image_scan
     steps:
     - name: Checkout Code
